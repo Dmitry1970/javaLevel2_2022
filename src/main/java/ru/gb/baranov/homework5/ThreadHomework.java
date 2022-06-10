@@ -1,7 +1,5 @@
 package ru.gb.baranov.homework5;
 
-import java.sql.SQLOutput;
-
 public class ThreadHomework {
 
     public static void main(String[] args) {
