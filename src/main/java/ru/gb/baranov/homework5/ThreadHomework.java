@@ -17,6 +17,7 @@ public class ThreadHomework {
         long startTime = System.currentTimeMillis();
         for (int i = 0; i < arr.length; i++) {
             arr[i] = (float) (arr[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
+
         }
         System.out.println("One thread time: " + (System.currentTimeMillis() - startTime) + " ms. ");
     }
@@ -34,28 +35,21 @@ public class ThreadHomework {
         float[] rightHalf = new float[halfSize];
         System.arraycopy(arr, 0, leftHalf, 0, halfSize);
         System.arraycopy(arr, halfSize, rightHalf, 0, halfSize);
-        Thread threadLeft = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                for (int i = 0; i < leftHalf.length; i++) {
-                    leftHalf[i] = (float) (leftHalf[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
-                }
-                System.out.println(Thread.currentThread().getName());
-                System.out.println("ThreadLeft time: " + (System.currentTimeMillis() - startTime) + " ms. ");
+        Thread threadLeft = new Thread(() -> {
+            for (int i = 0; i < leftHalf.length; i++) {
+                leftHalf[i] = (float) (leftHalf[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
             }
-
+            System.out.println(Thread.currentThread().getName());
+            System.out.println("ThreadLeft time: " + (System.currentTimeMillis() - startTime) + " ms. ");
         });
 
-        Thread threadRight = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                for (int i = 0; i < rightHalf.length; i++) {
-                    int j = i + halfSize;
-                    rightHalf[i] = (float) (rightHalf[i] * Math.sin(0.2f + j / 5) * Math.cos(0.2f + j / 5) * Math.cos(0.4f + j / 2));
-                }
-                System.out.println(Thread.currentThread().getName());
-                System.out.println("ThreadRight time: " + (System.currentTimeMillis() - startTime));
+        Thread threadRight = new Thread(() -> {
+            for (int i = 0; i < rightHalf.length; i++) {
+                int j = i + halfSize;
+                rightHalf[i] = (float) (rightHalf[i] * Math.sin(0.2f + j / 5) * Math.cos(0.2f + j / 5) * Math.cos(0.4f + j / 2));
             }
+            System.out.println(Thread.currentThread().getName());
+            System.out.println("ThreadRight time: " + (System.currentTimeMillis() - startTime));
         });
 
         threadLeft.start();
