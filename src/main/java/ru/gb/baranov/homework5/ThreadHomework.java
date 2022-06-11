@@ -60,8 +60,9 @@ public class ThreadHomework {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.arraycopy(leftHalf, 0, arr, 0, halfSize);
-        System.arraycopy(rightHalf, 0, arr, halfSize, halfSize);
+        float[] mergedArray = new float[size];
+        System.arraycopy(leftHalf, 0, mergedArray, 0, halfSize);
+        System.arraycopy(rightHalf, 0, mergedArray, halfSize, halfSize);
         long totalTime = System.currentTimeMillis() - startTime;
         System.out.println("Merged thread time: " + (System.currentTimeMillis() - startTime) + " ms.");
 
